@@ -99,9 +99,50 @@
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+    document.querySelector('#log-btn').addEventListener('click', () => console.log('Console Log button clicked'));
+    document.querySelector('#error-btn').addEventListener('click', () => console.error('Console Error button clicked'));
+    document.querySelector('#count-btn').addEventListener('click', () => console.count('Console Count button clicked'));
+    document.querySelector('#warn-btn').addEventListener('click', () => console.warn('Console Warn button clicked'));
+    document.querySelector('#assert-btn').addEventListener('click', () => console.assert(false, 'Console Assert button clicked'));
+    document.querySelector('#clear-btn').addEventListener('click', () => console.clear());
+    document.querySelector('#dir-btn').addEventListener('click', () => console.dir(document.body));
+    document.querySelector('#dirxml-btn').addEventListener('click', () => console.dirxml(document));
+    document.querySelector('#group-start-btn').addEventListener('click', () => console.group('Console Group'));
+    document.querySelector('#group-end-btn').addEventListener('click', () => console.groupEnd());
+    document.querySelector('#table-btn').addEventListener('click', () => console.table([{a:1, b:'Y'}, {a:2, b:'Z'}]));
+    document.querySelector('#start-timer-btn').addEventListener('click', () => console.time('Timer'));
+    document.querySelector('#end-timer-btn').addEventListener('click', () => console.timeEnd('Timer'));
+    document.querySelector('#trace-btn').addEventListener('click', () => console.trace('Console Trace button clicked'));
 
-    // Start your code here
-    // You may move this JS to another file if you wish
+    document.querySelector('#global-error-btn').addEventListener('click', () => {
+      throw new Error('This is a global error!');
+    });
+
+    window.onerror = function (message, source, lineno, colno, error) {
+      console.log('Global error caught:', message);
+      return true;
+    };
+
+    try {
+      nonExistentFunction();
+    } catch (error) {
+      console.error('Caught an error:', error);
+    } finally {
+      console.log('Finally block executed');
+    }
+
+    class CustomError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = 'CustomError';
+      }
+    }
+
+    try {
+      throw new CustomError('This is a custom error');
+    } catch (error) {
+      console.error('Caught a custom error:', error);
+    }
   </script>
 </body>
 
